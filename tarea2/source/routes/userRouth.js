@@ -1,15 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const usersController = require('./../controllers/userCont');
+const { getUsers, getUserById, createUser, updateUser, deleteUser } = require('./../controllers/userCont');
+const { authMid, authRolMid } = require('./../middlewares/authMidlle');
 
-router.get('/users', usersController.getUsers);
+const adminRole = "admin";
 
-router.get('/users/:id', usersController.getUserById);
+router.get('/users', authMid, getUsers);
 
-router.post('/users', usersController.createUser);
+router.get('/users/:id', authMid, getUserById);
 
-router.put('/users/:id', usersController.updateUser);
+router.post('/users', [authMid, authRolMid(adminRole)], createUser);
 
-router.delete('/users/:id', usersController.deleteUser);
+router.put('/users/:id', [authMid, authRolMid(adminRole)], updateUser);
+
+router.delete('/users/:id', [authMid, authRolMid(adminRole)], deleteUser);
 
 module.exports = router;
