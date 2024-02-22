@@ -1,60 +1,60 @@
-const axios = require('axios');
-const API_URL = process.env.API_URL;
-const ResponseStatus = require('./../utils/response-status'); 
+const User = require('./../models/userMod');
+const ResponseStatus = require('./../utils/response-status');
 
 const getUsers = async (req, res) => {
   try {
-    const response = await axios.get(API_URL);
-    res.status(ResponseStatus.SUCCESS).json(response.data);
+    const users = await User.find();
+    res.status(ResponseStatus.SUCCESS).json(users);
   } catch (error) {
     console.error(error); 
-    res.status(ResponseStatus.INTERNAL_SERVER_ERROR).json({ message: 'No jalaron los usuarios pa' });
+    res.status(ResponseStatus.INTERNAL_SERVER_ERROR).json({ message: 'No jalaron los usuarios Pa' });
   }
 };
 
 const getUserById = async (req, res) => {
   try {
-    const response = await axios.get(`${API_URL}/${req.params.id}`);
-    res.status(ResponseStatus.SUCCESS).json(response.data);
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      res.status(ResponseStatus.NOT_FOUND).json({ message: 'No existe papi' });
+      return;
+    }
+    res.status(ResponseStatus.SUCCESS).json(user);
   } catch (error) {
     console.error(error); 
-    res.status(ResponseStatus.INTERNAL_SERVER_ERROR).json({ message: 'Ese usuario no existe pa' });
+    res.status(ResponseStatus.INTERNAL_SERVER_ERROR).json({ message: 'Ocurrió un error al buscar el usuario' });
   }
 };
 
 const createUser = async (req, res) => {
   try {
-    const response = await axios.post(API_URL, req.body);
-    res.status(ResponseStatus.SUCCESS).json(response.data);
+    const newUser = new User(req.body);
+    const savedUser = await newUser.save();
+    res.status(ResponseStatus.SUCCESS).json(savedUser);
   } catch (error) {
     console.error(error); 
-    res.status(ResponseStatus.INTERNAL_SERVER_ERROR).json({ message: 'No puedes crear el usuario, no eres rey pa' });
+    res.status(ResponseStatus.INTERNAL_SERVER_ERROR).json({ message: 'Mamaste' });
   }
 };
 
 const updateUser = async (req, res) => {
   try {
-    const response = await axios.put(`${API_URL}/${req.params.id}`, req.body);
-    res.status(ResponseStatus.SUCCESS).json(response.data);
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(ResponseStatus.SUCCESS).json(updatedUser);
   } catch (error) {
     console.error(error); 
-    res.status(ResponseStatus.INTERNAL_SERVER_ERROR).json({ message: 'No jalo papi, que quieres que haga??' });
+    res.status(ResponseStatus.INTERNAL_SERVER_ERROR).json({ message: 'No se pudo actualizar el usuario' });
   }
 };
 
 const deleteUser = async (req, res) => {
   try {
-    const userId = req.params.id; 
-    await axios.delete(`${API_URL}/${userId}`);
-    res.status(200).json({ message: `No me quiero ir señor Stark :-(  Usuario con ID ${userId} borrado. ` });
-
+    await User.findByIdAndDelete(req.params.id);
+    res.status(ResponseStatus.SUCCESS).json({ message: 'Baja confirmada' });
   } catch (error) {
     console.error(error);
-    res.status(ResponseStatus.INTERNAL_SERVER_ERROR).json({ message: 'Si sabes que el asesinato está penado rey???' });
+    res.status(ResponseStatus.INTERNAL_SERVER_ERROR).json({ message: 'Moriste tu' });
   }
 };
-
-
 
 module.exports = {
   getUsers,
