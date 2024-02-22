@@ -1,6 +1,7 @@
-
+const jwt = require('jsonwebtoken');
 const User = require("./../models/users");
 const ResponseStatus = require("./../utils/response-status");
+const hashPassword = require("./../utils/hash-password");
 
 class UsersController{
     getUsers(req, res){
@@ -29,7 +30,20 @@ class UsersController{
         } else {
             res.status(ResponseStatus.UNATHENTICATED).send('Usuario no autenticado');
         }
-    }     
+    } 
+    login(req, res) {
+        User.findOne({
+            email: req.body.email,
+            password: hashPassword(req.body.password),
+        }).then(response => {
+            if (response){
+                res.send(response);
+            } else {
+                res.status(ResponseStatus.UNATHENTICATED);
+            }
+        }).catch(e => res.status(ResponseStatus.BAD_REQUEST))
+    }
+
 
 }
 
