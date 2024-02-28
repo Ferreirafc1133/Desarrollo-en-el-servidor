@@ -1,0 +1,12 @@
+.contenedor {
+display: flex; 
+justify-content: center; 
+align-items: center; 
+height: 100vh;
+}
+.circulo {
+    width: 200px;
+    height: 200px; 
+    border-radius: 50%; 
+    background-image: url("https://s.rfi.fr/media/display/cda3201c-b406-11eb-b4c1-005056bff430/w:1280/p:4x3/hacker-2883632_1920_web.jpg");
+}
