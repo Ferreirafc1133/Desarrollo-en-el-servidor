@@ -1,0 +1,28 @@
+.contenedor {
+display: flex; 
+justify-content: center; 
+align-items: center; 
+height: 100vh;
+}
+.circulo {
+    width: 200px;
+    height: 200px; 
+    border-radius: 50%; 
+    background-image: url("https://s.rfi.fr/media/display/cda3201c-b406-11eb-b4c1-005056bff430/w:1280/p:4x3/hacker-2883632_1920_web.jpg");
+}
+table {
+    width: 100%;
+}
+
+table tbody tr:nth-child(2n) {
+    background-color: rgb(0, 0, 0);
+    color: antiquewhite;
+}
+
+table tbody tr:nth-child(2n+1) {
+    background-color: rgb(255, 17, 5);
+    color: antiquewhite;
+}
+table tr:first-child {
+    background-color: rgb(196, 246, 0);
+}
