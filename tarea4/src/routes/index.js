@@ -1,35 +1,32 @@
-const router = require('express').Router();
-const path = require('path');
-const axios = require('axios');
+const express = require('express');
+const router = express.Router();
+const authRoutes = require('./authRoutes');
+const { isAuthenticated } = require('../middlewares/authMidd');
+express.urlencoded({ extended: true })
+const apiRut = require('./apiRut');
 
-router.get('', (req, res) => {
-    //const url = path.join(__dirname, '..', 'views', 'index.html');
-    //res.sendFile(url);
+router.use(authRoutes);
+
+router.use('/api', apiRut);
+
+router.get('/', isAuthenticated, (req, res) => {
     res.render('home', {
-        title: 'titulo dinamique' 
+        title: 'Página de Inicio',
+        customCss: '/public/styles/home.css' 
     });
 });
 
-router.get('/about', (req, res) => {
-    res.render('about',{
-        layout: 'main-login'
+router.get('/register', (req, res) => {
+    res.render('register', {
+        title: 'Página de Registro',
     });
 });
 
-
-router.get('/tareas', (req, res) => {
-    const userId = req.query.user;
-    if(userId){
-        const url = `https://jsonplaceholder.typicode.com/todos?userId=${userId}`;
-        axios.get(url).then((response) => {
-            res.render('todos', {
-                userId,
-                todos: response.data
-            });
-        });
-    } else{
-        res.render('todos');
-    }
+router.get('/login', (req, res) => {
+    res.render('login', {
+        title: 'Página de Inicio de Sesion',
+    });
 });
+
 
 module.exports = router;

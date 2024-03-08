@@ -1,5 +1,26 @@
-{{title}}
-<p>Este es el contenido de la pagina de inicio</p>
-<div class="contenedor">
-    <div class="circulo"></div> 
-</div>
+<div id="background-image-container">
+        <img src="https://c4.wallpaperflare.com/wallpaper/344/502/426/anonymous-computer-hacker-legion-wallpaper-preview.jpg" alt="Background" />
+    </div>
+
+    <div class="overlay-container">
+        <div class="search-container">
+            <h1>Bienvenido a la WikiComo</h1>
+            <p>Encuentra lo que necesitas:</p>
+            <form id="searchForm" action="/api/buscar" method="GET">
+                <input type="text" placeholder="Buscar..." name="q" required>
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+        
+        <div id="results-container">
+        </div>
+    </div>
+
+    <footer>
+        <div id="pagination">
+            <button id="prevPage">Anterior</button>
+            <span id="pageNumber">1</span> 
+            <button id="nextPage">Siguiente</button>
+        </div>
+        <button id="logoutButton">Cerrar Sesión</button>
+    </footer>
