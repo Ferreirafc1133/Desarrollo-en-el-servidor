@@ -11,7 +11,7 @@ router.use('/api', apiRut);
 
 router.get('/', isAuthenticated, (req, res) => {
     res.render('home', {
-        title: 'Página de Inicio',
+        title: 'Buscador de noticias',
         customCss: '/public/styles/home.css' 
     });
 });
