@@ -1,25 +1,11 @@
-/*
-import {User} from './types';
-import UserRole from './types/user-role';
-
-const yo: User = {
-    name: 'Ferreira',
-    lastname: 'Chavez',
-    age: 25
-}
-
-yo.email = 'ferreira@ferreira.com'
-yo.role = UserRole.ADMIN
-*/
-
-import express, {Request, Response} from 'express';
-
+import express from 'express';
+import routes  from './routes';
 const app = express();
 
-app.get('', (req: Request, res: Response) => {
-    res.send('api works');
-});
+const port = process.env.PORT || 3000;
 
-app.listen(3000, () => {
-    console.log('Example app listening on port 3000!');
+app.use(routes);
+
+app.listen(port, () => {
+    console.log(`Example app listening on port =  ${port}`);
 });
