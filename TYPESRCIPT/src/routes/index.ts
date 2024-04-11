@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import multer, {FileFilterCallback} from "multer";
-
+import uploadS3 from 
 
 type File = {
     originalname: string,
@@ -38,5 +38,6 @@ router.post("/upload", upload.single("doc"), (req: Request, res: Response) => {
     console.log(req.file);
 })
 
+router.post('/upload-s3')
 
 export default router;
