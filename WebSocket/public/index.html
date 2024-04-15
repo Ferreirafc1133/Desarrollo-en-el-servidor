@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <h1>WebSocket CLIENT</h1>
+    <button id="boton">Picame papi</button>
+    <script>
+        // const ws = new WebSocket('ws://localhost:3000');
+
+        // ws.onmessage = (evento => {
+        //     alert('Message received: ' + evento.data);
+        //     console.log('Message received: ' + evento.data);
+        // })
+        const socket = io('http://localhost:3000');
+        let counter = 0;
+        document.getElementById('boton').addEventListener('click', () => {
+            counter++;
+            console.log('Le picaste al G');
+            socket.emit('message', 'Le picaste al G');
+            socket.emit('counter', counter);
+        });  
+        socket.on('onesClick', (data) => {
+            console.log('Message received:  ${data}');
+        });
+
+    </script>
+</body>
+</html>
