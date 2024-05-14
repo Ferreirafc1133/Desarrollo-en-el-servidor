@@ -1,0 +1,19 @@
+<body>
+    <div class="header">
+        <h1>Buscador de noticias</h1>
+    </div>
+    {{#if noticias.length}}
+        <div class="search-container">
+            {{#each noticias}}
+                <div class="noticia">
+                    <h2><a href="{{this.url}}" target="_blank">{{this.title}}</a></h2>
+                    <p>{{this.description}}</p>
+                </div>
+            {{/each}}
+        </div>
+    {{else}}
+        <div class="search-container">
+            <p>No se encontraron resultados.</p>
+        </div>
+    {{/if}}
+</body>
